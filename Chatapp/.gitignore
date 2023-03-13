@@ -6,6 +6,8 @@ __pycache__
 db.sqlite3
 media
 
+Chatapp/settings.py
+
 # Backup files # 
 *.bak 
 
