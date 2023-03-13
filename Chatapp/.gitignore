@@ -6,7 +6,13 @@ __pycache__
 db.sqlite3
 media
 
-./Chatapp/settings.py
+# django
+**/migrations/**
+!**/migrations
+!**/migrations/__init__.py
+
+# remove settings from git
+settings.py
 
 # Backup files # 
 *.bak 
