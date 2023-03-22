@@ -4,9 +4,62 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <title>ChatBox Register</title>
 </head>
 <body>
+
+    <section class="vh-100 gradient-custom text-center form_anim">
+        <div class="container py-5 h-100">
+          <div class="row justify-content-center align-items-center h-100">
+            <div class="col-12 col-lg-9 col-xl-7">
+              <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                <div class="card-body p-4 p-md-5">
+                    <h1 class="mb-4 pb-2 pb-md-0 mb-md-5">Register</h1>
+                    <form method="POST" autocomplete="off" action="" style="opacity: 1">
+                        {% csrf_token %}
+                        <div class="input-group flex-nowrap" style="opacity: 1">
+                            <div class="input-group-prepend" style="opacity: 1">
+                              <span class="input-group-text" id="addon-wrapping" style="opacity: 1">👤</span>
+                            </div>
+                            <input type="text" name="username" maxlength="150" class="textinput textInput form-control" required id="id_username" placeholder="Username" onfocus="this.removeAttribute('readonly');" readonly>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="input-group flex-nowrap" style="opacity: 1">
+                            <div class="input-group-prepend" style="opacity: 1">
+                              <span class="input-group-text" id="addon-wrapping" style="opacity: 1">📨</span>
+                            </div>
+                            <input type="email" name="email" class="emailinput form-control" required id="id_email" placeholder="Email"  onfocus="this.removeAttribute('readonly');" readonly>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="input-group flex-nowrap" style="opacity: 1">
+                            <div class="input-group-prepend" style="opacity: 1">
+                              <span class="input-group-text" id="addon-wrapping" style="opacity: 1">🔐</span>
+                            </div>
+                            <input type="password" name="password1" autocomplete="new-password" class="textinput textInput form-control" required id="id_password1" placeholder="Password"  onfocus="this.removeAttribute('readonly');" readonly >
+                        </div>
+                        <br>
+                        <br>
+                        <div class="input-group flex-nowrap" style="opacity: 1">
+                            <div class="input-group-prepend" style="opacity: 1">
+                              <span class="input-group-text" id="addon-wrapping" style="opacity: 1">🔐</span>
+                            </div>
+                            <input type="password" name="password2" autocomplete="new-password" class="textinput textInput form-control" required id="id_password2" placeholder="Confirm Password"  onfocus="this.removeAttribute('readonly');" readonly >
+                        </div>
+                        <br>
+                        <br>
+                        {{form.non_field_errors}}
+                    <button class="btn btn-primary" type="submit">Register</button>
+                    <br>
+                    <br>
+                    <p class="text-center">If you already have an account, <a href="/login">login</a> instead.</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
     
 </body>
 </html>

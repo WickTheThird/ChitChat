@@ -6,12 +6,12 @@ from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import *
 
-
+#? INDEX
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'login.html')
 
 # REGISTER
-def register(request):
+def registerRequest(request):
 
     if request.method == "POST":
         form = NewUserForm(request.POST)
@@ -26,10 +26,9 @@ def register(request):
 
 
 # LOGIN
-def login(request):
-
+def loginRequest(request):
+    print("this should print")
     if request.method == "POST":
-
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
@@ -38,7 +37,7 @@ def login(request):
             if user is not None:
                 login(request, user)
                 messages.info(request, f"You are now logged in as {username}.")
-                return redirect("index")
+                return redirect("home")
             else:
                 messages.error(request,"Invalid username or password.")
         else:
@@ -47,10 +46,19 @@ def login(request):
     return render(request=request, template_name="login.html", context={"login_form":form})
 
 # LOGOUT
-def logout(request):
-
+def logoutRequest(request):
     logout(request)
     messages.info(request, "You have successfully logged out.") 
     return redirect("login")
 
-
+#> HOME
+@login_required
+def home(request):
+    
+    currentUser = request.user
+    try:
+        customer = currentUser.customer
+    except Customer.DoesNotExist:
+        customer = Customer.objects.create(id=currentUser, name=currentUser.username, email=currentUser.email)
+    
+    return render(request, 'home.html')
