@@ -6,6 +6,11 @@ from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import *
 
+def lenChecker(arr):
+    if len(arr) > 0:
+        return arr[0]
+    return []
+
 #? INDEX
 def index(request):
     return render(request, 'login.html')
@@ -60,7 +65,8 @@ def home(request):
         Customer.objects.create(id=currentUser, name=currentUser.username, email=currentUser.email)
         
     friendRequests = FriendRequests.objects.filter(receiver=currentUser.customer)
-        
+    friends = currentUser.customer.friends.all()
+
     if request.method == 'POST':
 
         if "search" in request.POST:
@@ -74,9 +80,13 @@ def home(request):
                 return render(request, 'home.html', {
                                                         'customer': customer,
                                                         'friendRequests': friendRequests,
+                                                        'friends': friends,
                                                     })
 
-    return render(request, 'home.html', {'friendRequests': friendRequests})
+    return render(request, 'home.html', {
+                                        'friendRequests': friendRequests,
+                                        'friends': friends,
+                                        })
 
 #> USER PROFILE // will work on this a more later on
 @login_required
@@ -103,15 +113,27 @@ def sendFriendRequest(request, userName):
 
     return redirect("home")
 
-#todo: make sure that in this model, the senders and recivers are added to each others friend fields...
+#? NOTE THAT BY THIS STAGE THE USERNAMNES ARE DIFFERENT
+#? BY THIS STAGE WE CAN ASSUME THAT ALL USERS EXIST
 def acceptFriendRequest(request, userName):
 
-    whichUser = Customer.objects.filter(name__icontains=userName)
-    
-    if len(whichUser) > 0:
-        whichUser = whichUser[0] #? username is unique
+    currentUser = Customer.objects.get(name__icontains=request.user.username)
+    whichUser = Customer.objects.get(name__icontains=userName)
     
     req = FriendRequests.objects.filter(sender=whichUser, receiver=request.user.customer)
+    
+    user1 = User.objects.get(username__icontains=whichUser.name)
+    user2 = User.objects.get(username__icontains=request.user.username)
+   
+    # Testing
+    # print(currentUser, user1)
+    # print(whichUser, user2)
+
+    whichUser.friends.add(user2)
+    whichUser.save()
+
+    currentUser.friends.add(user1)
+    currentUser.save()
 
     #? Note that a user may have multiple requests from the same person...
     for r in req:

@@ -70,12 +70,28 @@
           <h5 class="card-title">{{customer.name}}</h5>
           <h6 class="card-subtitle mb-2 text-muted">{{customer.email}}</h6>
           <p class="card-text">{{customer.about}}</p>
-         
+
           <a href="{% url 'user' customer.name  %}" class="card-link">See Profile</a>
+          
+          {% if customer.id not in friends%}
+
           <a href="{% url 'friend_request' customer.name  %}" class="card-link">Send Friend Request</a>
+
+          {%endif%}
         </div>
     </div>
     {% endif  %}
+
+    {%for x in friends%}
+
+    <div class="card text-center mt-5 mx-5" style="width: 10rem;">
+        <div class="card-body">
+          <h5 class="card-title">{{x}}</h5>
+        </div>
+      </div>
+
+    {%endfor%}
+
     {% endblock%}
 
 </body>
