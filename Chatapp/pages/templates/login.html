@@ -36,6 +36,11 @@
             <div class="col text-center" style="opacity: 1">
                 <input class="btn btn-primary text-center" type="submit" name = "login" value="Login" style="width: 20%; opacity: 1">
             </div>
+
+            <div class="mb-3">
+                {{form.non_field_errors}}
+            </div>
+
         </form>
         <br>
         <p style="opacity: 1">Don't have an account? <a href="/register">Create an account</a>.</p>
