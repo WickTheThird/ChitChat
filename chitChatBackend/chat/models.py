@@ -62,4 +62,3 @@ class FriendRequest(models.Model):
 
     def __str__(self) -> str:
         return self.state()
-    
