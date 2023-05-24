@@ -8,9 +8,12 @@ class NewUserForm(UserCreationForm):
     email = forms.EmailField(required=True)
     error = []
     
+    password1 = forms.CharField(widget=forms.PasswordInput())
+    password2 = forms.CharField(widget=forms.PasswordInput())
+    
     class Meta:
-        model = models.User
-        fields = ("username", "email", "password1", "password2")
+        model = models.Users
+        fields = ("name", "email", "password1", "password2")
 
     def save(self, commit=True):
         user = super(NewUserForm, self).save(commit=False)
