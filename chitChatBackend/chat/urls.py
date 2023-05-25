@@ -3,9 +3,8 @@ from . import views
 from rest_framework import routers
 
 router = routers.DefaultRouter()
-router.register(r'login', views.loginViewset, basename='login')
-router.register(r'signup', views.signupViewset, basename='signup')
-router.register(r'logout', views.logoutViewset, basename='logout')
+router.register(r'login', views.LoginViewset, basename='login')
+router.register(r'signup', views.SignupViewset, basename='signup')
 
 urlpatterns = [
     path("", views.index),
