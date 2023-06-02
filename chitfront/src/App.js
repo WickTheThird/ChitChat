@@ -4,14 +4,6 @@ import EntryForm from './components/entry_forms';
 
 function App() {
 
-  useEffect(() => {
-
-    return () => {
-
-    }
-  }, [])
-  
-
   return (
     <div>
       <EntryForm />
