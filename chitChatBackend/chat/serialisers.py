@@ -5,15 +5,36 @@ from . import models
 import re
 
 class Login(serializers.ModelSerializer):
+    email = serializers.EmailField()
+    password1 = serializers.CharField(write_only=True)
+
     class Meta:
         model = models.Users
-        fields = ('name', 'password1')
+        fields = ('name', 'password1', 'email')
 
     def validate(self, data):
-        user = authenticate(name=data['name'], password1=data['password'])
-        if not user:
-            raise serializers.ValidationError("Invalid username or password")
-        return data
+        errors = []
+        
+        username = data.get('name')
+        password = data.get('password1')
+        email = data.get('email')
+        
+        if not models.Users.objects.filter(name=username).exists():
+            errors.append("Username does not exist.")
+        
+        if not models.Users.objects.filter(email=email).exists():
+            errors.append("Email does not exist.")
+            
+        if not models.Users.objects.filter(name=username, email=email).exists():
+            errors.append("Username and email do not match.")
+
+        return errors
+
+    def perform_create(self, serializer):
+        print("Validated data:", serializer.validated_data)
+        if serializer.validated_data == []:
+            return
+        super().perform_create(serializer)
 
 class Signup(serializers.ModelSerializer):
     email = serializers.EmailField()
@@ -48,3 +69,8 @@ class Signup(serializers.ModelSerializer):
             password=validated_data['password1'],
         )
         return user
+    
+    def perform_create(self, serializer):
+        if serializer.validated_data == []:
+            return
+        super().perform_create(serializer)

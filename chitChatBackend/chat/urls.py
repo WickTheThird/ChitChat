@@ -9,4 +9,5 @@ router.register(r'signup', views.SignupViewset, basename='signup')
 urlpatterns = [
     path("", views.index),
     path("api/", include(router.urls)),
+    path("api/login/", views.LoginViewset.as_view({'post': 'post'}), name="login"),
 ]

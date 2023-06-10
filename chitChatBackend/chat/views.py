@@ -9,6 +9,9 @@ from rest_framework import viewsets, status
 # from rest_framework.authtoken.views import ObtainAuthToken
 # from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
+from rest_framework.decorators import action
+from rest_framework.viewsets import GenericViewSet
+
 
 from . import serialisers
 from . import models
@@ -17,9 +20,30 @@ def index(request):
     return render(request=request, template_name='index.html')
 
 #> API
-class LoginViewset(viewsets.ModelViewSet):
+class LoginViewset(GenericViewSet):
     serializer_class = serialisers.Login
-    queryset = models.Users.objects.all()
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            
+            print("\nValidated data:\n", serializer.validated_data)
+            
+            username = serializer.validated_data[0]#['username']
+            password = serializer.validated_data[1]#['password1']
+            email = serializer.validated_data[2]#['email']
+
+            user = authenticate(request, username=username, password=password, email=email)
+
+            if user is not None:
+                login(request, user)
+                return Response({"message": "User logged in successfully"}, status=status.HTTP_200_OK)
+            else:
+                print(serializer.validated_data)
+                return Response(serializer.validated_data, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(serializer.validated_data, status=status.HTTP_400_BAD_REQUEST)
+
 
 class SignupViewset(viewsets.ModelViewSet):
     serializer_class = serialisers.Signup
