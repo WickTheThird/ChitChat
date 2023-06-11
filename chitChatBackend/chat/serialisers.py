@@ -24,6 +24,9 @@ class Login(serializers.ModelSerializer):
         
         if not models.Users.objects.filter(email=email).exists():
             errors.append("Email does not exist.")
+        
+        if not models.Users.objects.filter(password=password).exists():
+            errors.append("Incorrect password.")
             
         if not models.Users.objects.filter(name=username, email=email).exists():
             errors.append("Username and email do not match.")

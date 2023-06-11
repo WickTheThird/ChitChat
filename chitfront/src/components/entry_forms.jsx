@@ -1,7 +1,16 @@
+import React, { useState, useEffect } from 'react';
 
 //> Main
-function EntryForm() {
-    //> State
+function EntryForm(isRegister=false) {
+    //> States
+    const [reg, setReg] = useState(false);
+
+    //> Register
+    useEffect (() => {
+        setReg(isRegister.isRegister);
+        console.log("Register: " + isRegister.isRegister);
+        console.log("Reg: " + reg);
+    }, [isRegister.isRegister]);
 
     //> Login
     const login = async (event) => {
@@ -85,11 +94,11 @@ function EntryForm() {
                     <form id="signForm" onSubmit={(event => register(event))}>  
                         <input type="text" htmlFor="username" id="username" className="form-input px-4 py-3 shadow-lg mt-6 rounded-md focus:outline-none" placeholder="Username"/>
                         <input type="email" htmlFor="email" id="email" className="form-input px-4 py-3 shadow-lg mt-5 rounded-md focus:outline-none" placeholder="Email"/>
-                        <input type="password" htmlhtmlFor="password" id="password1" className="form-input px-4 py-3 shadow-lg mt-5 rounded-md focus:outline-none" placeholder="Password"/>
-                        <input type="password" htmlhtmlFor="password2" id = "password2" className="form-input px-4 py-3 shadow-lg mt-5 rounded-md focus:outline-none" placeholder="Password"/>
+                        <input type="password" htmlFor="password" id="password1" className="form-input px-4 py-3 shadow-lg mt-5 rounded-md focus:outline-none" placeholder="Password"/>
+                        <input type="password" htmlFor="password2" id = "password2" className="form-input px-4 py-3 shadow-lg mt-5 rounded-md focus:outline-none" placeholder="Password"/>
                         <br/>
 
-                        <input type="submit" class="px-2 py-2 shadow mt-5 focus:outline-none bg-sky-500 rounded text-white cursor-pointer"/>
+                        <input type="submit" className="px-2 py-2 shadow mt-5 focus:outline-none bg-sky-500 rounded text-white cursor-pointer"/>
                     </form>
 
                 </div>
@@ -99,7 +108,7 @@ function EntryForm() {
 
     return (
         <div>
-            <LogForm/>
+            {reg ? <RegForm/> : <LogForm/>}
         </div>
     );
 };
