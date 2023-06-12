@@ -16,14 +16,14 @@ from rest_framework.viewsets import GenericViewSet
 from . import serialisers
 from . import models
 
-def index(request):
+def index(request) -> (render):
     return render(request=request, template_name='index.html')
 
 #> API
 class LoginViewset(GenericViewSet):
     serializer_class = serialisers.Login
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs) -> (Response or None):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             
@@ -49,7 +49,26 @@ class SignupViewset(viewsets.ModelViewSet):
     serializer_class = serialisers.Signup
     queryset = models.Users.objects.all()
 
-    #> This overrites the method, but someting similar will have to happen when sending messages;
+    def post(self, request, *args, **kwargs) -> (Response or None):
+        serialiser = self.get_serializer(data=request.data)
+        
+        if serialiser.is_valid():
+            
+            print("\nValidated Data:\n", serialiser.validated_data)
+            
+            username = serialiser.validated_data[0]#['username']
+            email = serialiser.validated_data[1]#['email']
+            password1 = serialiser.validated_data[2]#['password1']
+            password2 = serialiser.validated_data[3]#['password2']
+            
+        #? a checker on both the views and the serialiser must be put in place to check the existence of a user or not
+        
+        user = authenticate(request, username=username, password1=password1, password2=password2, email=email)
+
+        print("\nThis is user\n", user)
+        
+
+    #> This overrites the method, but someting similar will have to happen when sending messages
     # def create(self, request, *args, **kwargs):
     #     # Add the message string to the validated data
     #     validated_data = dict(request.data)
