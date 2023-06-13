@@ -25,7 +25,7 @@ class LoginViewset(GenericViewSet):
 
     def post(self, request, *args, **kwargs) -> (Response or None):
         serializer = self.get_serializer(data=request.data)
-        if serializer.is_valid():            
+        if serializer.is_valid():
             username=serializer.validated_data['name'][0]
             email=serializer.validated_data['email'][0]
 
