@@ -1,15 +1,15 @@
 from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import AuthenticationForm
+# from django.contrib.auth.decorators import login_required
+# from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
-from django.contrib import messages
-from django.http import JsonResponse
+# from django.contrib import messages
+# from django.http import JsonResponse
 
 from rest_framework import viewsets, status
 # from rest_framework.authtoken.views import ObtainAuthToken
 # from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
-from rest_framework.decorators import action
+# from rest_framework.decorators import action
 from rest_framework.viewsets import GenericViewSet
 
 
@@ -25,22 +25,16 @@ class LoginViewset(GenericViewSet):
 
     def post(self, request, *args, **kwargs) -> (Response or None):
         serializer = self.get_serializer(data=request.data)
-        if serializer.is_valid():
-            
-            print("\nValidated data:\n", serializer.validated_data)
-            
-            username = serializer.validated_data[0]#['username']
-            password = serializer.validated_data[1]#['password1']
-            email = serializer.validated_data[2]#['email']
+        if serializer.is_valid():            
+            username=serializer.validated_data['name'][0]
+            email=serializer.validated_data['email'][0]
 
-            user = authenticate(request, username=username, password=password, email=email)
+            print("\nUsername:", username, "\nEmail:", email, '\n')
 
-            if user is not None:
-                login(request, user)
-                return Response({"message": "User logged in successfully"}, status=status.HTTP_200_OK)
-            else:
-                print(serializer.validated_data)
-                return Response(serializer.validated_data, status=status.HTTP_400_BAD_REQUEST)
+            user = models.User.objects.filter(username=username, email=email).first()
+            login(request, user)
+
+            return Response({"message": "User logged in successfully"}, status=status.HTTP_200_OK)
         else:
             return Response(serializer.validated_data, status=status.HTTP_400_BAD_REQUEST)
 
@@ -51,22 +45,14 @@ class SignupViewset(viewsets.ModelViewSet):
 
     def post(self, request, *args, **kwargs) -> (Response or None):
         serialiser = self.get_serializer(data=request.data)
-        
-        if serialiser.is_valid():
-            
-            print("\nValidated Data:\n", serialiser.validated_data)
-            
-            username = serialiser.validated_data[0]#['username']
-            email = serialiser.validated_data[1]#['email']
-            password1 = serialiser.validated_data[2]#['password1']
-            password2 = serialiser.validated_data[3]#['password2']
-            
-        #? a checker on both the views and the serialiser must be put in place to check the existence of a user or not
-        
-        user = authenticate(request, username=username, password1=password1, password2=password2, email=email)
 
-        print("\nThis is user\n", user)
-        
+        if serialiser.is_valid():
+            message = serialiser.perform_create(serialiser)
+            if message is True:
+                return Response({"message": "User created successfully"}, status=status.HTTP_201_CREATED)
+            return Response({"message:" "Failed to create new user."}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(serialiser.validated_data, status=status.HTTP_400_BAD_REQUEST)
 
     #> This overrites the method, but someting similar will have to happen when sending messages
     # def create(self, request, *args, **kwargs):
