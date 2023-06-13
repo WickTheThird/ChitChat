@@ -48,7 +48,7 @@ class Login(serializers.ModelSerializer):
 
         return validated_data
 
-    #! I hardly believe this will ever be called given that this is a login serializer
+    #! I hardly believe this will ever be called given that this is a login serializer (i will keep it here for reference)
     def perform_create(self, serializer) -> (None):
         print("Validated data:", serializer.validated_data)
         if serializer.validated_data == []:
