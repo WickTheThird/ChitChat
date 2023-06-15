@@ -19,10 +19,10 @@ class Login(serializers.ModelSerializer):
         username = data.get('name')
         password = data.get('password1')
         email = data.get('email')
-        
+
         validated_data['name'] = []
         validated_data['name'].append(username)
-        
+
         validated_data['email'] = []
         validated_data['email'].append(email)
 
@@ -32,7 +32,7 @@ class Login(serializers.ModelSerializer):
         if not models.Users.objects.filter(name=username).exists():
             validated_data['name'].append("Username does not exist.")
             raise serializers.ValidationError("Username does not exist.")
-            
+
 
         if not models.Users.objects.filter(email=email).exists():
             validated_data['email'].append("Email does not exist.")
@@ -67,21 +67,21 @@ class Signup(serializers.ModelSerializer):
 
     def validate(self, data) -> (list or None):
         validated_data = {}
-        
+
         username = data.get('name')
         email = data.get('email')
         password1 = data.get('password1')
         password2 = data.get('password2')
-        
+
         validated_data['name'] = []
         validated_data['name'].append(username)
 
         validated_data['email'] = []
         validated_data['email'].append(email)
-        
+
         validated_data['paassword'] = []
         validated_data['paassword'].append(password1)
-         
+
         #? the user technically does not exist currently but we must check that the information provided does meet certain criteria
         if models.Users.objects.filter(name=username).exists():
             validated_data['name'].append("Username already exists.")
@@ -90,7 +90,7 @@ class Signup(serializers.ModelSerializer):
         if models.Users.objects.filter(name=username, email=email).exists():
             validated_data['email'].append("Username or email adddress incorrect")
             raise serializers.ValidationError("Username or email adddress incorrect")
-        
+
         if not re.search(r"^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$", email):
             validated_data['email'].append("Invalid email address")
             raise serializers.ValidationError("Invalid email address")
@@ -115,14 +115,14 @@ class Signup(serializers.ModelSerializer):
         )
 
         return user
-    
+
     def perform_create(self, serializer) -> (None):
         print("Validated data: ", serializer.validated_data)
         if serializer.validated_data == []:
             print("\nINFORMATION MUSN'T BE EMPTY!\n")
             return False
         user = self.create(serializer.validated_data)
-        
+
         users = models.Users.objects.create(
             user=user,
             name=user.username,
@@ -133,5 +133,5 @@ class Signup(serializers.ModelSerializer):
 
         user.save
         users.save
-        
+
         return True

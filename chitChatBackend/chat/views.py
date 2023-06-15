@@ -70,9 +70,9 @@ class SignupViewset(viewsets.ModelViewSet):
 # class UserLoginView(ObtainAuthToken):
 #     def post(self, request, *args, **kwargs):
 #         serialisers = self.serializer_class(data=request.data, context={'request': request})
-        
+
 #         serialisers.is_valid(raise_exception=True)
 #         user = serialisers.validated_data['user']
 #         token, created = Token.objects.get_or_create(user=user)
-        
+
 #         return Response({'token': token.key})
