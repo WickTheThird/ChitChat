@@ -32,7 +32,7 @@ jobs:
           cd chitfront
           pwd
           ls
-          npm ci
+          npm install
 
       - name: Run tests
         run: |
