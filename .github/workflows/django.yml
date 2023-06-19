@@ -22,14 +22,14 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Check if requirements.txt is empty
       run: |
-        if [ ! -s requirements.txt ]; then
+        if [ ! -s chitChatBackend/requirements.txt ]; then
           echo "Skipping installation as requirements.txt is empty."
           exit 0
         fi
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        pip install -r chitChatBackend/requirements.txt
     - name: Change Directory
       run: cd chitChatBackend
     - name: Run Tests
