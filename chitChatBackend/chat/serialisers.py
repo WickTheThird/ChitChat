@@ -1,8 +1,9 @@
 from rest_framework import serializers
-from django.contrib.auth import authenticate
-from django.core.exceptions import ValidationError
+# from django.contrib.auth import authenticate
+# from django.core.exceptions import ValidationError
 from . import models
 import re
+
 
 class Login(serializers.ModelSerializer):
     name = serializers.CharField(write_only=True)
@@ -55,15 +56,18 @@ class Login(serializers.ModelSerializer):
             return
         super().perform_create(serializer)
 
+
 class Signup(serializers.ModelSerializer):
     name = serializers.CharField(write_only=True)
     email = serializers.EmailField()
     password1 = serializers.CharField(write_only=True)
     password2 = serializers.CharField(write_only=True)
 
+
     class Meta:
         model = models.Users
         fields = ('name', 'email', 'password1', 'password2')
+
 
     def validate(self, data) -> (list or None):
         validated_data = {}
@@ -104,6 +108,7 @@ class Signup(serializers.ModelSerializer):
 
         return validated_data
 
+
     def create(self, validated_data) -> (object or None):
 
         print("\n This is validated data ", validated_data, "\n")
@@ -115,6 +120,7 @@ class Signup(serializers.ModelSerializer):
         )
 
         return user
+
 
     def perform_create(self, serializer) -> (None):
         print("Validated data: ", serializer.validated_data)
@@ -129,7 +135,7 @@ class Signup(serializers.ModelSerializer):
             email=user.email,
             password1=user.password,
             password2=user.password
-        )        
+        )
 
         user.save
         users.save

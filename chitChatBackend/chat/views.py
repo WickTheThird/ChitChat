@@ -1,7 +1,7 @@
 from django.shortcuts import render
 # from django.contrib.auth.decorators import login_required
 # from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import login, authenticate, logout # <-- just add these here in case i need them
 # from django.contrib import messages
 # from django.http import JsonResponse
 
@@ -16,12 +16,24 @@ from rest_framework.viewsets import GenericViewSet
 from . import serialisers
 from . import models
 
+
 def index(request) -> (render):
-    return render(request=request, template_name='index.html')
+     return render(request=request, template_name='index.html')
+
+
+#> Tokens
+def Tokens(request) -> (None):
+    
+    if request == 'GET':
+        pass
+    
+    return
+
 
 #> API
 class LoginViewset(GenericViewSet):
     serializer_class = serialisers.Login
+
 
     def post(self, request, *args, **kwargs) -> (Response or None):
         serializer = self.get_serializer(data=request.data)
@@ -32,6 +44,11 @@ class LoginViewset(GenericViewSet):
             print("\nUsername:", username, "\nEmail:", email, '\n')
 
             user = models.User.objects.filter(username=username, email=email).first()
+            state = authenticate(request, username=username, password=user.password1)
+            
+            if not state:
+                return Response({"message": "Incorrect password or username"}, status=status.HTTP_400_BAD_REQUEST)
+
             login(request, user)
 
             return Response({"message": "User logged in successfully"}, status=status.HTTP_200_OK)
@@ -42,6 +59,7 @@ class LoginViewset(GenericViewSet):
 class SignupViewset(viewsets.ModelViewSet):
     serializer_class = serialisers.Signup
     queryset = models.Users.objects.all()
+
 
     def post(self, request, *args, **kwargs) -> (Response or None):
         serialiser = self.get_serializer(data=request.data)
