@@ -19,9 +19,9 @@ jobs:
           node-version: 14
 
       - name: Install dependencies
-        working-directory: ChitChat/chitfront
+        working-directory: ../../ChitChat/chitfront
         run: npm ci
 
       - name: Run tests
-        working-directory: ChitChat/chitfront
+        working-directory: ../../ChitChat/chitfront
         run: npm test
