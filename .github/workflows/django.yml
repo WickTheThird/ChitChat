@@ -34,4 +34,4 @@ jobs:
       run: cd chitChatBackend
     - name: Run Tests
       run: |
-        python manage.py test
+        python chitChatBackend/manage.py test
