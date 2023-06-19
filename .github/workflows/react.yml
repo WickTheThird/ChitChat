@@ -11,7 +11,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-          path: ChitChat/chitfront
+          path: chitfront # Specify the correct working directory path
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
@@ -19,7 +19,9 @@ jobs:
           node-version: 14
 
       - name: Install dependencies
+        working-directory: chitfront
         run: npm ci
 
       - name: Run tests
+        working-directory: chitfront
         run: npm test
