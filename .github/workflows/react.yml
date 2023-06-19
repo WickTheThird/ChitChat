@@ -29,11 +29,6 @@ jobs:
           cd chitfront
           npm ci
 
-      - name: Install @testing-library/jest-dom
-        run: |
-          cd chitfront
-          npm install --save-dev @testing-library/jest-dom@^5.14.1
-
       - name: Run tests
         run: |
           cd chitfront
