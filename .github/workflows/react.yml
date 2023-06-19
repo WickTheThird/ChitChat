@@ -10,9 +10,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Chance Dir
-        run: cd chitfront
-    
       - name: Checkout code
         uses: actions/checkout@v2
 
