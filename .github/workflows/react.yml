@@ -27,7 +27,6 @@ jobs:
       - name: Install dependencies
         run: |
           cd chitfront
-          npm init
           npm ci
 
       - name: Run tests
