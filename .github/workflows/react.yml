@@ -1,5 +1,4 @@
-name: React Convention Tester
-
+name: React Convention Test
 on:
   push:
     branches:
@@ -8,34 +7,21 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Filter changes
-        id: filter
-        uses: dorny/paths-filter@v2
-        with:
-          filters: |
-            addedOrModified:
-              - added|modified: 'chitfront/**'
-
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-          path: chitfront
-        if: steps.filter.outputs.paths_changed
+          path: chitfront # Specify the desired working directory
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
           node-version: 14
-        if: steps.filter.outputs.paths_changed
 
       - name: Install dependencies
         working-directory: chitfront
         run: npm ci
-        if: steps.filter.outputs.paths_changed
 
       - name: Run tests
         working-directory: chitfront
         run: npm test
-        if: steps.filter.outputs.paths_changed
