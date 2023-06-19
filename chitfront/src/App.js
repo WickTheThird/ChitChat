@@ -21,7 +21,6 @@ function App() {
 
     //> About Button
 
-
     return (
       <div>
         {signUp()}
