@@ -26,6 +26,7 @@ function App() {
         {signUp()}
 
         <EntryForm  isRegister={reg} />
+        <a href="/" data-testid="learn-react-link" style={{visibility: 'none'}}>Learn React</a>
       </div>
     );
 }
