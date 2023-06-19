@@ -16,8 +16,8 @@ jobs:
         with:
           node-version: 14
 
-      - name: Change working directory
-        run: cd ../chitfront
+      - name: Checking dir
+        run: ls
 
       - name: Install dependencies
         run: npm ci
