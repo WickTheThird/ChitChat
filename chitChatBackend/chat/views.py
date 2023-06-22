@@ -35,7 +35,7 @@ class LoginViewset(GenericViewSet):
     serializer_class = serialisers.Login
 
 
-    def post(self, request, *args, **kwargs) -> (Response or None):
+    def post(self, request) -> (Response or None):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             username=serializer.validated_data['name'][0]
@@ -52,6 +52,7 @@ class LoginViewset(GenericViewSet):
             login(request, user)
 
             return Response({"message": "User logged in successfully"}, status=status.HTTP_200_OK)
+
         else:
             return Response(serializer.validated_data, status=status.HTTP_400_BAD_REQUEST)
 
@@ -61,14 +62,16 @@ class SignupViewset(viewsets.ModelViewSet):
     queryset = models.Users.objects.all()
 
 
-    def post(self, request, *args, **kwargs) -> (Response or None):
+    def post(self, request) -> (Response or None):
         serialiser = self.get_serializer(data=request.data)
 
         if serialiser.is_valid():
             message = serialiser.perform_create(serialiser)
             if message is True:
                 return Response({"message": "User created successfully"}, status=status.HTTP_201_CREATED)
+
             return Response({"message:" "Failed to create new user."}, status=status.HTTP_400_BAD_REQUEST)
+
         else:
             return Response(serialiser.validated_data, status=status.HTTP_400_BAD_REQUEST)
 
@@ -84,7 +87,7 @@ class SignupViewset(viewsets.ModelViewSet):
     #     headers = self.get_success_headers(serializer.data)
     #     return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
-#? An alternative
+# An alternative
 # class UserLoginView(ObtainAuthToken):
 #     def post(self, request, *args, **kwargs):
 #         serialisers = self.serializer_class(data=request.data, context={'request': request})
@@ -94,3 +97,32 @@ class SignupViewset(viewsets.ModelViewSet):
 #         token, created = Token.objects.get_or_create(user=user)
 
 #         return Response({'token': token.key})
+
+#? Messsging
+
+class Messages(viewsets.ModelViewSet):
+
+
+    def get(self, request) -> (Response or None):
+        pass
+
+
+    def delete(self, request) -> (Response or None):
+        pass
+
+
+    def patch(self, request) -> (Response or None):
+        pass
+
+
+    def sentTo(self, request) -> (Response or None):
+        pass
+
+
+    def sentFrom(self, request) -> (Response or None):
+        pass
+
+
+    def manage(self, request) -> (Response or None):
+        pass
+
