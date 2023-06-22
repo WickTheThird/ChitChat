@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 class Users(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user_profile')
     name = models.CharField(max_length=50)
+
     email = models.EmailField(max_length=254)
     password1 = models.CharField(max_length=50, blank=True)
     password2 = models.CharField(max_length=50, blank=True)
@@ -14,7 +15,7 @@ class Users(models.Model):
     class Meta:
         ordering = ["name"]
 
-    
+
     def __str__(self) -> str:
         return self.name
 
@@ -23,8 +24,10 @@ class Friends(models.Model):
     user = models.ForeignKey(Users, on_delete=models.CASCADE, related_name='user_friends')
     friends = models.ManyToManyField(Users, related_name='user_friendship')
 
-    requestsSent = models.ManyToManyField(Users, related_name='requests_sent')
-    requestsReceived = models.ManyToManyField(Users, related_name='requests_received')
+    requestsSent = models.ManyToManyField(Users, related_name='sent')
+    requestsReceived = models.ManyToManyField(Users, related_name='received')
+
+    messages = models.ManyToManyField(Users, related_name='user_messages')
 
 
     class Meta:
@@ -42,7 +45,7 @@ class Friends(models.Model):
     def search(self, userName):
         return self.friends.filter(users__name=userName)
 
-    
+
     def reqSent(self, toUser):
         self.requestsSent.add(toUser)
 
@@ -67,7 +70,7 @@ class FriendRequest(models.Model):
         3 : "rejected",
     }
 
-    
+
     def state(self, stateID) -> str:
         return self.status[stateID]
 
@@ -79,3 +82,14 @@ class FriendRequest(models.Model):
 
     def __str__(self) -> str:
         return self.state()
+
+
+class Messages(models.Model):
+    content = models.CharField(max_length=175, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    sender = models.ForeignKey(Users, on_delete=models.CASCADE, related_name='sender')
+    reciever = models.ForeignKey(Users, on_delete=models.CASCADE, related_name='reciever')
+
+    def __str__(self):
+        return self.created_at + "\n" + self.sender + " \n" + self.reciever + "\nContent\n" + self.content

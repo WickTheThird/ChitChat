@@ -141,3 +141,7 @@ class Signup(serializers.ModelSerializer):
         users.save
 
         return True
+
+
+
+
