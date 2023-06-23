@@ -43,16 +43,11 @@
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/WickTheThird/ChitChat.git"
+    "type": "git"
   },
   "keywords": [
     "Messaging"
   ],
   "author": "WickTheThird",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/WickTheThird/ChitChat/issues"
-  },
-  "homepage": "https://github.com/WickTheThird/ChitChat#readme"
+  "license": "ISC"
 }
