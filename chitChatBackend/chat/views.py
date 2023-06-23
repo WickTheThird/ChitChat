@@ -99,30 +99,84 @@ class SignupViewset(viewsets.ModelViewSet):
 #         return Response({'token': token.key})
 
 #? Messsging
-
 class Messages(viewsets.ModelViewSet):
 
 
     def get(self, request) -> (Response or None):
-        pass
+        messages = models.Messages.objects.all()
+        serializer = serialisers.Messages(messages, many=True)
+        
+        if serializer.is_valid() and request == 'GET':
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        return Response({"message": "Failed to get messages"}, status=status.HTTP_400_BAD_REQUEST)
 
 
     def delete(self, request) -> (Response or None):
-        pass
+        serializer = serialisers.Messages(data=request.data)
+        
+        if serializer.is_valid() and request == 'DELETE':
+            message = serializer.validated_data['message'][0]
+            print(message)
+            models.Messages.objects.filter(message=message).delete()
+
+            return Response({"message": "Message deleted successfully"}, status=status.HTTP_200_OK)
+
+        return Response({"message": "Failed to delete message"}, status=status.HTTP_400_BAD_REQUEST)
 
 
     def patch(self, request) -> (Response or None):
-        pass
+        serialiser = serialisers.Messages(data=request.data)
+        
+        if serialiser.is_valid() and request == 'PATCH':
+            message = serialiser.validated_data['message'][0]
+            print(message)
+            models.Messages.objects.filter(message=message).update(message=message)
+
+            return Response({"message": "Message updated successfully"}, status=status.HTTP_200_OK)
+
+        return Response({"message": "Failed to update message"}, status=status.HTTP_400_BAD_REQUEST)
 
 
     def sentTo(self, request) -> (Response or None):
-        pass
+        serialiser = serialisers.Messages(data=request.data)
+        
+        if serialiser.is_valid() and request == 'POST':
+            message = serialiser.validated_data['message'][0]
+            print(message)
+            models.Messages.objects.create(message=message)
+
+            return Response({"message": "Message sent successfully"}, status=status.HTTP_200_OK)
 
 
     def sentFrom(self, request) -> (Response or None):
-        pass
+        serialiser = serialisers.Messages(data=request.data)
+        
+        if serialiser.is_valid() and request == 'POST':
+            message = serialiser.validated_data['message'][0]
+            print(message)
+            models.Messages.objects.create(message=message)
+
+            return Response({"message": "Message sent successfully"}, status=status.HTTP_200_OK)
 
 
     def manage(self, request) -> (Response or None):
-        pass
+        
+        if request == 'GET':
+            return self.get(request)
+
+        elif request == 'DELETE':
+            return self.delete(request)
+
+        elif request == 'PATCH':
+            return self.patch(request)
+
+        elif request == 'POST':
+            return self.sentTo(request)
+
+        elif request == 'POST':
+            return self.sentFrom(request)
+
+        else:
+            return Response({"message": "Failed to manage message"}, status=status.HTTP_400_BAD_REQUEST)
 
