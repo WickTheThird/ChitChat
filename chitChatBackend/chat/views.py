@@ -109,7 +109,7 @@ class MessageViewset(viewsets.ModelViewSet):
         serializer = serialisers.Messages(data=request.data, many=True)
 
         if serializer.is_valid() and request.method == 'GET':
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response(messages, status=status.HTTP_200_OK)
 
         return Response({"message": "Failed to get messages"}, status=status.HTTP_400_BAD_REQUEST)
 
