@@ -1,16 +1,26 @@
 import React, { useState, useEffect } from 'react';
 
 //> Main
-function EntryForm(isRegister=false) {
+function EntryForm() {
     //> States
     const [reg, setReg] = useState(false);
+    const [isRegister, setIsRegister] = useState({isRegister: false});
+
+    //> Set Auth switch
+    const signUp = () => {
+        return (
+          <div onClick={(event) => setReg(!reg)} className="flex flex-col justify-center items-center min-h-screen box-border h-10 w-20 text-center align-baseline bg-sky-500/100 text-zinc-50/100 absolute top-100" style={{cursor:'pointer'}}>
+            {!reg ? "SignUp" : "LogIn"}
+          </div>
+        );
+      };
 
     //> Register
     useEffect (() => {
-        setReg(isRegister.isRegister);
-        console.log("Register: " + isRegister.isRegister);
+        setReg(isRegister);
+        console.log("Register: " + isRegister);
         console.log("Reg: " + reg);
-    }, [isRegister.isRegister]);
+    }, [isRegister]);
 
     //> Login
     const login = async (event) => {
@@ -148,6 +158,7 @@ function EntryForm(isRegister=false) {
 
     return (
         <div>
+            {signUp()}
             {reg ? <RegForm/> : <LogForm/>}
         </div>
     );
