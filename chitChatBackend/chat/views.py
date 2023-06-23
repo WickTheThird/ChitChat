@@ -37,6 +37,7 @@ class LoginViewset(GenericViewSet):
 
     def post(self, request) -> (Response or None):
         serializer = self.get_serializer(data=request.data)
+
         if serializer.is_valid():
             username=serializer.validated_data['name'][0]
             email=serializer.validated_data['email'][0]
@@ -99,14 +100,15 @@ class SignupViewset(viewsets.ModelViewSet):
 #         return Response({'token': token.key})
 
 #? Messsging
-class Messages(viewsets.ModelViewSet):
+class MessageViewset(viewsets.ModelViewSet):
+    serializer_class = serialisers.Messages
 
 
     def get(self, request) -> (Response or None):
         messages = models.Messages.objects.all()
-        serializer = serialisers.Messages(messages, many=True)
-        
-        if serializer.is_valid() and request == 'GET':
+        serializer = serialisers.Messages(data=request.data, many=True)
+
+        if serializer.is_valid() and request.method == 'GET':
             return Response(serializer.data, status=status.HTTP_200_OK)
 
         return Response({"message": "Failed to get messages"}, status=status.HTTP_400_BAD_REQUEST)
@@ -114,8 +116,8 @@ class Messages(viewsets.ModelViewSet):
 
     def delete(self, request) -> (Response or None):
         serializer = serialisers.Messages(data=request.data)
-        
-        if serializer.is_valid() and request == 'DELETE':
+
+        if serializer.is_valid() and request.method == 'DELETE':
             message = serializer.validated_data['message'][0]
             print(message)
             models.Messages.objects.filter(message=message).delete()
@@ -127,8 +129,8 @@ class Messages(viewsets.ModelViewSet):
 
     def patch(self, request) -> (Response or None):
         serialiser = serialisers.Messages(data=request.data)
-        
-        if serialiser.is_valid() and request == 'PATCH':
+
+        if serialiser.is_valid() and request.method == 'PATCH':
             message = serialiser.validated_data['message'][0]
             print(message)
             models.Messages.objects.filter(message=message).update(message=message)
@@ -140,8 +142,8 @@ class Messages(viewsets.ModelViewSet):
 
     def sentTo(self, request) -> (Response or None):
         serialiser = serialisers.Messages(data=request.data)
-        
-        if serialiser.is_valid() and request == 'POST':
+
+        if serialiser.is_valid() and request.method == 'POST':
             message = serialiser.validated_data['message'][0]
             print(message)
             models.Messages.objects.create(message=message)
@@ -151,32 +153,10 @@ class Messages(viewsets.ModelViewSet):
 
     def sentFrom(self, request) -> (Response or None):
         serialiser = serialisers.Messages(data=request.data)
-        
-        if serialiser.is_valid() and request == 'POST':
+
+        if serialiser.is_valid() and request.method == 'POST':
             message = serialiser.validated_data['message'][0]
             print(message)
             models.Messages.objects.create(message=message)
 
             return Response({"message": "Message sent successfully"}, status=status.HTTP_200_OK)
-
-
-    def manage(self, request) -> (Response or None):
-        
-        if request == 'GET':
-            return self.get(request)
-
-        elif request == 'DELETE':
-            return self.delete(request)
-
-        elif request == 'PATCH':
-            return self.patch(request)
-
-        elif request == 'POST':
-            return self.sentTo(request)
-
-        elif request == 'POST':
-            return self.sentFrom(request)
-
-        else:
-            return Response({"message": "Failed to manage message"}, status=status.HTTP_400_BAD_REQUEST)
-

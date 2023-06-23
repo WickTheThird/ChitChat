@@ -4,7 +4,7 @@ from rest_framework import serializers
 from . import models
 import re
 
-
+#> Authentication
 class Login(serializers.ModelSerializer):
     name = serializers.CharField(write_only=True)
     email = serializers.EmailField()
@@ -144,4 +144,43 @@ class Signup(serializers.ModelSerializer):
 
 
 
+#> Messages
+class Messages(serializers.ModelSerializer):
+    content = serializers.CharField(write_only=True)
+    created_at = serializers.DateTimeField(read_only=True)
+    
+    sender = serializers.CharField(write_only=True)
+    reciever = serializers.CharField(write_only=True)
+    
+
+    class Meta:
+        model = models.Messages
+        fields = ('content', 'created_at', 'sender', 'reciever')
+
+
+    def validate(self, data) -> (dict or None):
+        validated_data = {}
+
+        content = data.get('content')
+        sender = data.get('sender')
+        reciever = data.get('reciever')
+
+        validated_data['content'] = []
+        validated_data['content'].append(content)
+
+        validated_data['sender'] = []
+        validated_data['sender'].append(sender)
+
+        validated_data['reciever'] = []
+        validated_data['reciever'].append(reciever)
+
+        if not models.Users.objects.filter(name=sender).exists():
+            validated_data['sender'].append("Sender does not exist.")
+            raise serializers.ValidationError("Sender does not exist.")
+
+        if not models.Users.objects.filter(name=reciever).exists():
+            validated_data['reciever'].append("Reciever does not exist.")
+            raise serializers.ValidationError("Reciever does not exist.")
+
+        return validated_data
 
