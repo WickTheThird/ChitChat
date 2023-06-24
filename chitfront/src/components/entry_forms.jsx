@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-//> Main
 function EntryForm() {
     //> States
     const [reg, setReg] = useState(false);
@@ -52,9 +51,9 @@ function EntryForm() {
                 if (response.status === 400) {
                   const data = await response.json();
                   console.error('Validation errors:', data);
-                  //? handle validation errors in your component
+                  //? handle validation errors in your component --> small module cards at the top of the screen
                 } else {
-                  //? handle successful login
+                  //? handle successful login --> store token in the local storage so that it can be used when making API calls
                 }
               } catch (error) {
                 console.error('Error during login:', error);
@@ -121,9 +120,9 @@ function EntryForm() {
                 if (response.status === 400) {
                     const data = await response.json();
                     console.error("Validation errors: ", data);
-                    //? handle validation errors
+                    //? handle validation errors --> small cards modules at the top of the screen
                 } else {
-                    //? handle signup
+                    //? handle signup --> set reg to login mode since credentials are in the backend
                 }
             } catch (error) {
                 console.log("Error during signUp: ", error);

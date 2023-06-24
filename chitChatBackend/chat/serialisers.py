@@ -148,10 +148,10 @@ class Signup(serializers.ModelSerializer):
 class Messages(serializers.ModelSerializer):
     content = serializers.CharField(write_only=True)
     created_at = serializers.DateTimeField(read_only=True)
-    
+
     sender = serializers.CharField(write_only=True)
     reciever = serializers.CharField(write_only=True)
-    
+
 
     class Meta:
         model = models.Messages
@@ -183,4 +183,3 @@ class Messages(serializers.ModelSerializer):
             raise serializers.ValidationError("Reciever does not exist.")
 
         return validated_data
-
