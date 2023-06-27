@@ -22,7 +22,30 @@ function Home() {
 
         //> UI
         return (
-            <div className="flex flex-col justify-center items-center box-border h-screen w-1/3 text-center align-baseline shadow-2xl z-0"> </div>
+
+            <div className="flex flex-col justify-center items-center box-border h-screen w-1/3 text-center align-baseline shadow-2xl z-0"> 
+
+                {/* Profile Icon + Search */}
+                    <div className=''>
+
+                    </div>
+                {/* Profile Icon + Search */}
+
+
+                {/* Messages */}
+                    <div className=''>
+
+                    </div>
+                {/* Messages */}
+
+                {/* FOOTER => Setting and other */}
+                    <div className=''>
+
+                    </div>
+                {/* FOOTER => Setting and other */}
+
+            </div>
+
         );
     };
 
