@@ -147,40 +147,41 @@ function Home() {
 
 
                 {/* Contact Box/ Profile */}
-                <div className=''>
+                    <div className=''>
 
-                </div>
+                    </div>
                 {/* Contact Box/ Profile */}
 
 
                 {/* The messages */}
-                <div className=''>
+                     <div className=''>
 
-                </div>
+                    </div>
                 {/* The messages */}
 
 
                 {/* The texting box  */}
-                <div className='absolute bottom-9'>
-                    <form method='POST' action='none'>
-                        <div className=''> {/*  <--  */}
-                            <input for='message' type='text' htmlFor='messaging' placeholder='Type message...' />
-                            <button>Send</button>
-                        </div>
+                <div className="flex justify-center absolute bottom-5 right-auto w-3/5 bg-violet-500 text-white rounded-lg shadow-md">
+                    <form method="POST" action="none" className="flex-grow flex">
+                        <input for="message" type="text" htmlFor="messaging" placeholder="Type message..." className="flex-grow p-2"/>
                     </form>
+                    <button className="p-2">Send</button>
                 </div>
                 {/* The texting box  */}
 
 
             </div>
+
         );
     };
 
     return (
+
         <div className="flex flex-row">
             {contactView()}
             {messageToUser()}
         </div>
+
     );
 }
 
