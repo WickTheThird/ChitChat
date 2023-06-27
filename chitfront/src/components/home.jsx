@@ -15,7 +15,30 @@ function Home() {
         const viewContacts = async (event) => {
 
             if (event) {
-                //TODO: actions
+                
+                try {
+
+                    const response = await fetch('', {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        }
+                    });
+
+                    if (response.status === 400) {
+                        const data = await response.json();
+                        console.log("Failed to fetch contacts: " + data.message);
+                        //? Handle error
+                    } else {
+                        //? Handle success
+                    }
+
+                } catch (event) {
+
+                    console.error('Error fetching contacts: ' + event.message);
+
+                }
+
             }
 
         };
@@ -38,6 +61,7 @@ function Home() {
                     </div>
                 {/* Messages */}
 
+
                 {/* FOOTER => Setting and other */}
                     <div className=''>
 
@@ -56,16 +80,63 @@ function Home() {
         const viewMessages = async (event, toUser) => {
 
             if (event) {
-                //TODO: actions
-            }
 
+                try {
+
+                    const response = await fetch('', {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        }
+                    });
+
+                    if (response.status === 400) {
+                        const data = await response.json();
+                        console.log("Failed to fetch messages: " + data.message);
+                        //? Handle error
+                    } else {
+                        //? Handle success
+                    }
+
+                } catch (error) {
+
+                    console.error('Error fetching messages: ' + error.message);
+
+                }
+            }
         };
 
         //> Submit messsage to user
         const sendMessage = async (event, toUser) => {
 
             if (event) {
-                //TODO: actions
+                
+                try {
+
+                    const response = await fetch('', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            //TODO: complete request body points
+                        }),
+                    });
+
+                    if (response.status === 400) {
+                        const data = JSON.parse(response.json());
+                        console.log("Failed to send message: " + data.message);
+                        //? Handle error
+                    } else {
+                        //? Handle success
+                    }
+
+                } catch (error) {
+
+                    console.log('Error sending message: ' + error.message);
+
+                }
+
             }
 
         };

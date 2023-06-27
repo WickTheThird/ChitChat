@@ -104,6 +104,7 @@ function EntryForm() {
             let password2 = event.target.password2.value;
 
             try {
+
                 const response = await fetch(`http://localhost:8000/api/signup/`, {
                     method: "POST",
                     headers: {
@@ -115,6 +116,7 @@ function EntryForm() {
                         password1: password1,
                         password2: password2,
                     }),
+
                 });
 
                 if (response.status === 400) {
@@ -124,6 +126,7 @@ function EntryForm() {
                 } else {
                     //? handle signup --> set reg to login mode since credentials are in the backend
                 }
+
             } catch (error) {
                 console.log("Error during signUp: ", error);
             }
