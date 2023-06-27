@@ -13,4 +13,6 @@ root.render(
   </React.StrictMode>
 );
 
+console.log('App component rendered:', App);
+
 reportWebVitals();
