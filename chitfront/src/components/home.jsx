@@ -161,9 +161,9 @@ function Home() {
 
 
                 {/* The texting box  */}
-                <div className="flex justify-center absolute bottom-5 right-auto w-3/5 bg-violet-500 text-white rounded-lg shadow-md">
+                <div className="flex justify-center absolute bottom-5 right-auto w-3/5 h-16 bg-violet-500 text-white rounded-lg shadow-md">
                     <form method="POST" action="none" className="flex-grow flex">
-                        <input for="message" type="text" htmlFor="messaging" placeholder="Type message..." className="flex-grow p-2"/>
+                        <input type="text" htmlFor="messaging" placeholder="Type message..." className="flex-grow p-2 text-black"/>
                     </form>
                     <button className="p-2">Send</button>
                 </div>
