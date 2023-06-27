@@ -49,21 +49,21 @@ function Home() {
             <div className="flex flex-col justify-center items-center box-border h-screen w-1/3 text-center align-baseline shadow-2xl z-0"> 
 
                 {/* Profile Icon + Search */}
-                    <div className=''>
+                    <div className='flex justify-center absolute top-5 left-auto w-1/4 h-16 text-white bg-sky-500 rounded-lg shadow-md backdrop-blur-xl drop-shadow-lg'>
 
                     </div>
                 {/* Profile Icon + Search */}
 
 
                 {/* Messages */}
-                    <div className=''>
+                    <div className='flex justify-center absolute left-auto text-white w-1/4 h-4/5 bg-sky-500 rounded-lg shadow-md backdrop-blur-xl drop-shadow-lg'>
 
                     </div>
                 {/* Messages */}
 
 
                 {/* FOOTER => Setting and other */}
-                    <div className=''>
+                    <div className='flex justify-center absolute left-auto bottom-5 text-white w-1/4 h-16 bg-sky-500 rounded-lg shadow-md backdrop-blur-xl drop-shadow-lg'>
 
                     </div>
                 {/* FOOTER => Setting and other */}
@@ -143,11 +143,12 @@ function Home() {
 
         //> UI
         return (
+
             <div className="flex flex-col justify-center items-center box-border h-screen w-2/3 p-5 shadow-md z-1"> 
 
 
                 {/* Contact Box/ Profile */}
-                    <div className='flex justify-center absolute top-5 right-auto w-3/5 h-16 bg-violet-500 text-white rounded-lg shadow-md backdrop-blur-xl drop-shadow-lg'>
+                    <div className='flex justify-center absolute top-5 right-auto w-3/5 h-16 bg-sky-500 text-white rounded-lg shadow-md backdrop-blur-xl drop-shadow-lg'>
 
                     </div>
                 {/* Contact Box/ Profile */}
@@ -161,12 +162,15 @@ function Home() {
 
 
                 {/* The texting box  */}
-                <div className="flex justify-center absolute bottom-5 right-auto w-3/5 h-16 bg-violet-500 text-white rounded-lg shadow-md backdrop-blur-xl drop-shadow-lg">
-                    <form method="POST" action="none" className="flex-grow flex">
-                        <input type="text" htmlFor="messaging" placeholder="Type message..." className="flex-grow p-2 text-black"/>
-                    </form>
-                    <button className="p-2">Send</button>
-                </div>
+                    <div className="flex justify-center absolute bottom-5 right-auto w-3/5 h-16 bg-sky-500 text-white rounded-lg shadow-md backdrop-blur-xl drop-shadow-lg">
+
+                        <form method="POST" action="none" className="flex-grow flex">
+                            <input type="text" htmlFor="messaging" placeholder="Type message..." className="flex-grow p-2 text-black rounded-l-lg"/>
+                        </form>
+
+                        <button className="p-2">Send</button>
+
+                    </div>
                 {/* The texting box  */}
 
 
