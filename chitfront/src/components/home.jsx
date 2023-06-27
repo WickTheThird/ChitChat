@@ -49,7 +49,36 @@ function Home() {
 
         //> UI
         return (
-            <div className="flex flex-col justify-center items-center box-border h-screen w-2/3 p-5 shadow bg-sky-500/100 z-1"> </div>
+            <div className="flex flex-col justify-center items-center box-border h-screen w-2/3 p-5 shadow-md z-1"> 
+
+
+                {/* Contact Box/ Profile */}
+                <div className=''>
+
+                </div>
+                {/* Contact Box/ Profile */}
+
+
+                {/* The messages */}
+                <div className=''>
+
+                </div>
+                {/* The messages */}
+
+
+                {/* The texting box  */}
+                <div className='absolute bottom-9'>
+                    <form method='POST' action='none'>
+                        <div className=''> {/*  <--  */}
+                            <input for='message' type='text' htmlFor='messaging' placeholder='Type message...' />
+                            <button>Send</button>
+                        </div>
+                    </form>
+                </div>
+                {/* The texting box  */}
+
+
+            </div>
         );
     };
 
