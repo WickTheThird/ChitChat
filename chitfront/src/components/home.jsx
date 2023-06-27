@@ -147,21 +147,21 @@ function Home() {
 
 
                 {/* Contact Box/ Profile */}
-                    <div className=''>
+                    <div className='flex justify-center absolute top-5 right-auto w-3/5 h-16 bg-violet-500 text-white rounded-lg shadow-md backdrop-blur-xl drop-shadow-lg'>
 
                     </div>
                 {/* Contact Box/ Profile */}
 
 
                 {/* The messages */}
-                     <div className=''>
+                    <div className='flex justify-center absolute h-4/5 w-3/5 text-white shadow-2xl bg-silver rounded-lg bg-opacity-50 backdrop-blur-xl drop-shadow-lg'>
 
                     </div>
                 {/* The messages */}
 
 
                 {/* The texting box  */}
-                <div className="flex justify-center absolute bottom-5 right-auto w-3/5 h-16 bg-violet-500 text-white rounded-lg shadow-md">
+                <div className="flex justify-center absolute bottom-5 right-auto w-3/5 h-16 bg-violet-500 text-white rounded-lg shadow-md backdrop-blur-xl drop-shadow-lg">
                     <form method="POST" action="none" className="flex-grow flex">
                         <input type="text" htmlFor="messaging" placeholder="Type message..." className="flex-grow p-2 text-black"/>
                     </form>
