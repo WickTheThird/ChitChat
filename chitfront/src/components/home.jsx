@@ -49,7 +49,7 @@ function Home() {
             <div className="flex flex-col justify-center items-center box-border h-screen w-1/3 text-center align-baseline shadow-2xl z-0"> 
 
                 {/* Profile Icon + Search */}
-                    <div className='flex justify-center absolute top-5 left-auto w-1/4 h-16 text-white bg-sky-500 rounded-lg shadow-md backdrop-blur-xl drop-shadow-lg'>
+                    <div className='flex justify-center absolute top-5 left-auto w-1/4 h-12 text-white bg-sky-500 rounded-lg shadow-md backdrop-blur-xl drop-shadow-lg'>
 
                     </div>
                 {/* Profile Icon + Search */}
@@ -63,7 +63,7 @@ function Home() {
 
 
                 {/* FOOTER => Setting and other */}
-                    <div className='flex justify-center absolute left-auto bottom-5 text-white w-1/4 h-16 bg-sky-500 rounded-lg shadow-md backdrop-blur-xl drop-shadow-lg'>
+                    <div className='flex justify-center absolute left-auto bottom-5 text-white w-1/4 h-12 bg-sky-500 rounded-lg shadow-md backdrop-blur-xl drop-shadow-lg'>
 
                     </div>
                 {/* FOOTER => Setting and other */}
@@ -148,7 +148,7 @@ function Home() {
 
 
                 {/* Contact Box/ Profile */}
-                    <div className='flex justify-center absolute top-5 right-auto w-3/5 h-16 bg-sky-500 text-white rounded-lg shadow-md backdrop-blur-xl drop-shadow-lg'>
+                    <div className='flex justify-center absolute top-5 right-auto w-3/5 h-12 bg-sky-500 text-white rounded-lg shadow-md backdrop-blur-xl drop-shadow-lg'>
 
                     </div>
                 {/* Contact Box/ Profile */}
@@ -162,7 +162,7 @@ function Home() {
 
 
                 {/* The texting box  */}
-                    <div className="flex justify-center absolute bottom-5 right-auto w-3/5 h-16 bg-sky-500 text-white rounded-lg shadow-md backdrop-blur-xl drop-shadow-lg">
+                    <div className="flex justify-center absolute bottom-5 right-auto w-3/5 h-12 bg-sky-500 text-white rounded-lg shadow-md backdrop-blur-xl drop-shadow-lg">
 
                         <form method="POST" action="none" className="flex-grow flex">
                             <input type="text" htmlFor="messaging" placeholder="Type message..." className="flex-grow p-2 text-black rounded-l-lg"/>

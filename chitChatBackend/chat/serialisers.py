@@ -1,8 +1,32 @@
-from rest_framework import serializers
 # from django.contrib.auth import authenticate
 # from django.core.exceptions import ValidationError
-from . import models
 import re
+
+from rest_framework import serializers
+
+from . import models
+
+
+#> Session
+class Session(serializers.ModelSerializer):
+
+    data = serializers.CharField(write_only=True)
+
+    class Meta:
+        fields = ('data')
+
+    def create(self) -> None:
+        pass
+
+    def terminate(self) -> None:
+        pass
+
+    def update(self) -> None:
+        pass
+
+    def validate(self) -> None:
+        pass
+
 
 #> Authentication
 class Login(serializers.ModelSerializer):

@@ -1,3 +1,5 @@
+
+#? DJANGO
 from django.shortcuts import render
 # from django.contrib.auth.decorators import login_required
 # from django.contrib.auth.forms import AuthenticationForm
@@ -5,6 +7,7 @@ from django.contrib.auth import login, authenticate, logout # <-- just add these
 # from django.contrib import messages
 # from django.http import JsonResponse
 
+#? REST
 from rest_framework import viewsets, status
 # from rest_framework.authtoken.views import ObtainAuthToken
 # from rest_framework.authtoken.models import Token
@@ -12,22 +15,33 @@ from rest_framework.response import Response
 # from rest_framework.decorators import action
 from rest_framework.viewsets import GenericViewSet
 
-
+#? FILES
 from . import serialisers
 from . import models
 
+#? ENCRYPTION
+from Crypto.Cipher import AES
+from Crypto.Random import get_random_bytes
 
-def index(request) -> (render):
-     return render(request=request, template_name='index.html')
+#> Session gen
+class Session:
 
+    #! NOTE THAT DATA MIGHT BE IN JSON SO KEEP IN MIND IN CASE ISSUES ARRISE
 
-#> Tokens
-def Tokens(request) -> (None):
-    
-    if request == 'GET':
-        pass
-    
-    return
+    def __init__(self):
+
+        self.key = get_random_bytes(128)
+        self.cipher = AES.new(self.key, AES.MODE_EAX)
+
+    def encrypt(self, data):
+
+        ciphertext, tag = self.cipher.encrypt_and_digest(data)
+        return ciphertext, tag
+
+    def decrypt(self, ciphertext, tag):
+
+        plaintext = self.cipher.decrypt_and_verify(ciphertext, tag)
+        return plaintext
 
 
 #> API
@@ -35,7 +49,7 @@ class LoginViewset(GenericViewSet):
     serializer_class = serialisers.Login
 
 
-    def post(self, request) -> (Response or None):
+    def login(self, request) -> (Response or None):
         serializer = self.get_serializer(data=request.data)
 
         if serializer.is_valid():
@@ -160,3 +174,9 @@ class MessageViewset(viewsets.ModelViewSet):
             models.Messages.objects.create(message=message)
 
             return Response({"message": "Message sent successfully"}, status=status.HTTP_200_OK)
+
+
+
+
+
+
