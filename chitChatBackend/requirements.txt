@@ -24,3 +24,8 @@ tzdata
 uritemplate
 wincertstore
 pycryptodome
+daphne
+channels
+websocket
+websocket_client
+djangorestframework_simplejwt

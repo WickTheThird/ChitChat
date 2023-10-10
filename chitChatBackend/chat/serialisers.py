@@ -1,32 +1,8 @@
-# from django.contrib.auth import authenticate
-# from django.core.exceptions import ValidationError
 import re
 
 from rest_framework import serializers
 
 from . import models
-
-
-#> Session
-class Session(serializers.ModelSerializer):
-
-    data = serializers.CharField(write_only=True)
-
-    class Meta:
-        fields = ('data')
-
-    def create(self) -> None:
-        pass
-
-    def terminate(self) -> None:
-        pass
-
-    def update(self) -> None:
-        pass
-
-    def validate(self) -> None:
-        pass
-
 
 #> Authentication
 class Login(serializers.ModelSerializer):
@@ -72,13 +48,6 @@ class Login(serializers.ModelSerializer):
             raise serializers.ValidationError("Incorrect email address.")
 
         return validated_data
-
-    #! I hardly believe this will ever be called given that this is a login serializer (i will keep it here for reference)
-    def perform_create(self, serializer) -> (None):
-        print("Validated data:", serializer.validated_data)
-        if serializer.validated_data == []:
-            return
-        super().perform_create(serializer)
 
 
 class Signup(serializers.ModelSerializer):
@@ -165,45 +134,3 @@ class Signup(serializers.ModelSerializer):
         users.save
 
         return True
-
-
-
-#> Messages
-class Messages(serializers.ModelSerializer):
-    content = serializers.CharField(write_only=True)
-    created_at = serializers.DateTimeField(read_only=True)
-
-    sender = serializers.CharField(write_only=True)
-    reciever = serializers.CharField(write_only=True)
-
-
-    class Meta:
-        model = models.Messages
-        fields = ('content', 'created_at', 'sender', 'reciever')
-
-
-    def validate(self, data) -> (dict or None):
-        validated_data = {}
-
-        content = data.get('content')
-        sender = data.get('sender')
-        reciever = data.get('reciever')
-
-        validated_data['content'] = []
-        validated_data['content'].append(content)
-
-        validated_data['sender'] = []
-        validated_data['sender'].append(sender)
-
-        validated_data['reciever'] = []
-        validated_data['reciever'].append(reciever)
-
-        if not models.Users.objects.filter(name=sender).exists():
-            validated_data['sender'].append("Sender does not exist.")
-            raise serializers.ValidationError("Sender does not exist.")
-
-        if not models.Users.objects.filter(name=reciever).exists():
-            validated_data['reciever'].append("Reciever does not exist.")
-            raise serializers.ValidationError("Reciever does not exist.")
-
-        return validated_data
